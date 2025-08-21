@@ -1,0 +1,9 @@
+<html>
+<body>
+<h2>MY First Page</h2>
+<p id="demo"></p>
+<script>
+document.getElementById("demo").innerHTML="Hi AI&DS";
+</script>
+</body>
+</html>
