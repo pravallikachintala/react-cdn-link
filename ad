@@ -1,0 +1,14 @@
+<DOCTYPE html>
+<html>
+<head>
+<title>click event</title>
+</head>
+<body>
+<button onclick="handleClick()">click me</button>
+<script>
+function handleClick(){
+console.log("button clicked!");
+}
+</script>
+</body>
+</html>
