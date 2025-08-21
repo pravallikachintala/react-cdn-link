@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html>
+ <head>
+   <title>React Counter with Max Limit</title>
+   <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+   <style>
+     body {
+       font-family: Arial, sans-serif;
+       text-align: center;
+       margin-top: 50px;
+       background-color: #f9f9f9;
+     }
+ 
+     .container {
+       display: inline-block;
+       padding: 30px;
+       background: white;
+       border-radius: 12px;
+       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+     }
+ 
+     button {
+       padding: 10px 20px;
+       font-size: 18px;
+       margin: 10px;
+       border: none;
+       border-radius: 6px;
+       cursor: pointer;
+       color: white;
+     }
+ 
+     .increment {
+       background-color: #28a745;
+     }
+ 
+     .decrement {
+       background-color: #dc3545;
+     }
+ 
+     button:disabled {
+       background-color: #cccccc;
+       cursor: not-allowed;
+     }
+ 
+     h3 {
+       font-size: 24px;
+     }
+ 
+     .limit-info {
+       margin-top: 10px;
+       font-size: 14px;
+       color: gray;
+     }
+   </style>
+ </head>
+ <body>
+   <h2>React Counter with Max Limit</h2>
+   <div id="root"></div>
+ 
+   <script type="text/babel">
+     function Counter() {
+       const MAX = 10;  // Set your max value here
+       const [count, setCount] = React.useState(0);
+ 
+       const increment = () => {
+         if (count < MAX) setCount(count + 1);
+       };
+ 
+       const decrement = () => {
+         if (count > 0) setCount(count - 1);
+       };
+ 
+       return (
+         <div className="container">
+           <h3>Count: {count}</h3>
+ 
+           <button
+             className="decrement"
+             onClick={decrement}
+             disabled={count === 0}
+           >
+             Decrement
+           </button>
+ 
+           <button
+             className="increment"
+             onClick={increment}
+             disabled={count === MAX}
+           >
+             Increment
+           </button>
+ 
+           <div className="limit-info">
+             (Minimum: 0, Maximum: {MAX})
+           </div>
+         </div>
+       );
+     }
+ 
+     const root = ReactDOM.createRoot(document.getElementById('root'));
+     root.render(<Counter />);
+   </script>
+ </body>
+</html>
