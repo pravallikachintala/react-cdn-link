@@ -1,0 +1,108 @@
+<!DOCTYPE html
+<html>
+ <head>
+   <title>React Button Calculator</title>
+   <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+   <style>
+     body {
+	 font-family:Arial,sans-serif;
+	  text-align:center;
+       background-color:lightorange;
+       padding:40px;
+     }
+     .app-container {
+       background:lightorange;
+       padding:30px;
+       display:inline-block;
+       border-radius:12px;
+       box-shadow: 0 0 12px rgba(0,0,0,0.2);
+     }
+     .candidate {
+       margin:15px 0;
+     }
+     button {
+       padding:10px 20px;
+       font-size:16px;
+       margin:5px;
+       border:none;
+       border-radius:6px;
+       cursor:pointer;
+       background-color:#007bff;
+       color:white;
+     }
+     button:hover {
+       background-color:#0056b3;
+     }
+     .reset {
+       background-color:#dc3545;
+     }
+     .reset:hover {
+       background-color:#a71d2a;
+     }
+     .majority {
+       margin-top:20px;
+       font-weight:bold;
+       color:green;
+     }
+     h2 {
+       color:#333;
+     }
+   </style>
+ </head>
+ <body>
+   <h2>React Voting App with Live Majority</h2>
+   <div id="root"></div>
+   <script type="text/babel">
+     function VotingApp() {
+       const [votes,setVotes]=React.useState({
+         Riya:0,
+         Niha:0,
+         Shannu:0,
+       });
+	   const [lastMajority,setLastMajority]=React.useState('');
+       const vote = (name) => {
+         setVotes((prevVotes) => ({
+           ...prevVotes,
+           [name]:prevVotes[name] + 1,
+         }));
+       };
+       const getMajorityCandidate = () => {
+         const maxVotes=Math.max(...Object.values(votes));
+         const leaders=Object.keys(votes).filter(
+           (candidate)=>votes[candidate]=== maxVotes
+         );
+         return leaders.length === 1 ? leaders[0] :'Tie';
+       };
+       const resetVotes = () => {
+         setLastMajority(getMajorityCandidate());
+         setVotes({Riya:0,Niha:0,Shannu:0});
+       };
+       const currentMajority=getMajorityCandidate();
+       return (
+         <div className="app-container">
+           {Object.keys(votes).map((candidate) => (
+             <div className="candidate" key={candidate}>
+               <strong>{candidate}:</strong> {votes[candidate]} votes
+               <br />
+               <button onClick={() => vote(candidate)}>Vote {candidate}</button>
+             </div>
+           ))}
+           <div className="majority">
+             <p>Current Majority: {currentMajority}</p>
+           </div>
+           <button className="reset" onClick={resetVotes}>Reset Votes</button>
+           {lastMajority && (
+             <div className="majority">
+               <p>Last Majority Winner: {lastMajority}</p>
+             </div>
+           )}
+         </div>
+       );
+     }
+     const root = ReactDOM.createRoot(document.getElementById('root'));
+     root.render(<VotingApp />);
+   </script>
+ </body>
+</html>
